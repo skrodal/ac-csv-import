@@ -1,7 +1,7 @@
 <?php
 	// 
-	$FEIDE_CONNECT_CONFIG_PATH = '/var/etc/ac-csv-import/feideconnect_config.js';
-	$ADOBE_CONNECT_CONFIG_PATH = '/var/etc/ac-csv-import/adobe_config.js';
+	$FEIDE_CONNECT_CONFIG_PATH = '/var/www/etc/ac-csv-import/feideconnect_config.js';
+	$ADOBE_CONNECT_CONFIG_PATH = '/var/www/etc/ac-csv-import/adobe_config.js';
 	//
 	$BASE          = dirname(__FILE__);
 	$API_BASE_PATH = '/api/ac-csv-import'; // Remember to update .htacces as well. Same with a '/' at the end...
