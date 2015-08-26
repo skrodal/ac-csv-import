@@ -71,7 +71,7 @@
 	// Make sure requested org name is the same as logged in user's org
 	function verifyOrgAccess($orgName){
 		if(strcasecmp($orgName, $GLOBALS['feide']->getUserOrg()) !== 0) {
-			Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized. ');
+			Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (request mismatch org/user). ');
 		}
 	}
 
