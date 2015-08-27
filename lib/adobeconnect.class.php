@@ -233,7 +233,7 @@
 			// Reason: The prefix also makes part of the generated URL - Connect API does not like spaces
 			$roomNamePrefixURL = str_replace(' ', '-', $roomNamePrefix);
 			// And take care of any other special chars 
-			$roomNamePrefixURL = htmlspecialchars($roomNamePrefix);
+			$roomNamePrefixURL = htmlspecialchars($roomNamePrefixURL);
 			
 			error_log($roomNamePrefixURL);
 
