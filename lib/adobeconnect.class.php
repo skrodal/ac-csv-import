@@ -18,10 +18,10 @@
 	 */
 
 
-	// Some calls take a long while so increase timeout limit from def. 30 to 60 seconds
-	set_time_limit(60);
+	// Some calls take a long while so increase timeout limit from def. 30
+	set_time_limit(180);
 	// Have experienced fatal error - allowed memory size of 128M exhausted - thus increase
-	ini_set('memory_limit', '256M');
+	ini_set('memory_limit', '350M');
 
 	class AdobeConnect {
 		private $DEBUG = false;
@@ -251,12 +251,12 @@
 
 			// Done :-)
 			return array(
-				id          => (string)$apiCreateMeetingRoomResult->sco['sco-id'],
-				folder_id   => (string)$apiCreateMeetingRoomResult->sco['folder-id'],
-				name        => (string)$apiCreateMeetingRoomResult->sco->name,
-				description => (string)$apiCreateMeetingRoomResult->sco->description,
-				url_path    => $this->config['connect-service-url'] . (string)$apiCreateMeetingRoomResult->sco->{'url-path'},
-				autocreated => "true"
+				'id'          => (string)$apiCreateMeetingRoomResult->sco['sco-id'],
+				'folder_id'   => (string)$apiCreateMeetingRoomResult->sco['folder-id'],
+				'name'        => (string)$apiCreateMeetingRoomResult->sco->name,
+				'description' => (string)$apiCreateMeetingRoomResult->sco->description,
+				'url_path'    => $this->config['connect-service-url'] . (string)$apiCreateMeetingRoomResult->sco->{'url-path'},
+				'autocreated' => "true"
 			);
 		}
 
@@ -293,12 +293,12 @@
 
 			// Room already exist - return response
 			return array(
-				id          => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco['sco-id'],
-				folder_id   => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco['folder-id'],
-				name        => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco->name,
-				description => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco->description,
-				url_path    => $this->config['connect-service-url'] . (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco->{'url-path'},
-				autocreated => "false"
+				'id'          => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco['sco-id'],
+				'folder_id'   => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco['folder-id'],
+				'name'        => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco->name,
+				'description' => (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco->description,
+				'url_path'    => $this->config['connect-service-url'] . (string)$apiRoomSearchResult->{'sco-search-by-field-info'}->sco->{'url-path'},
+				'autocreated' => "false"
 			);
 		}
 // ---------------------------- ./ CREATE ROOMS ----------------------------
@@ -408,9 +408,9 @@
 
 			// Done :-)
 			return array(
-				id          => $userPrincipalID,
-				username    => (string)$apiCreateUserResponse->principal->login,
-				autocreated => "true"
+				'id'          => $userPrincipalID,
+				'username'    => (string)$apiCreateUserResponse->principal->login,
+				'autocreated' => "true"
 			);
 		}
 
@@ -443,9 +443,9 @@
 
 			// Done :-)
 			return array(
-				id          => (string)$apiUserInfoResponse->{'principal-list'}->principal['principal-id'],
-				username    => (string)$apiUserInfoResponse->{'principal-list'}->principal->login,
-				autocreated => "false"
+				'id'          => (string)$apiUserInfoResponse->{'principal-list'}->principal['principal-id'],
+				'username'    => (string)$apiUserInfoResponse->{'principal-list'}->principal->login,
+				'autocreated' => "false"
 			);
 		}
 
