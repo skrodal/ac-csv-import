@@ -1,6 +1,6 @@
 {
 	// 
-	"connect-shared-folder-id	: "xxxxx",
+	"connect-shared-folder-id"	: "xxxxx",
 	//
 	"connect-api-base"			: "https://service.url.no/api/xml?",
 	"connect-api-userid"		: "xxx",
