@@ -19,7 +19,7 @@
 
 
 	// Some calls take a long while so increase timeout limit from def. 30
-	set_time_limit(180);
+	set_time_limit(300);	// 5 mins
 	// Have experienced fatal error - allowed memory size of 128M exhausted - thus increase
 	ini_set('memory_limit', '350M');
 
