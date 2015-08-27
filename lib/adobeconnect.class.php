@@ -229,6 +229,12 @@
 			// Get the SCO-ID for our newly created folder
 			$newFolderId = (string)$apiCreateMeetingRoomFolderResult->sco['sco-id'];
 
+			// Important: replace any spaces in prefix with '-'. 
+			// Reason: The prefix also makes part of the generated URL - Connect API does not like spaces
+			$roomNamePrefixURL = str_replace(' ', '-', $roomNamePrefix);
+			// And take care of any other special chars 
+			$roomNamePrefixURL = htmlspecialchars($roomNamePrefix);
+
 			// Create room in newly created folder
 			$apiCreateMeetingRoomResult = $this->callConnectApi(
 				array(
@@ -239,7 +245,7 @@
 					'folder-id'   => $newFolderId, // $roomFolderSCO,
 					'date-begin'  => '2015-07-01T09:00', // Dates are irrelevant
 					'date-end'    => '2015-07-01T17:00',
-					'url-path'    => $roomNamePrefix . $roomName,
+					'url-path'    => $roomNamePrefixURL . $roomName,
 				)
 			);
 			$this->_logger('(AFTER)', __LINE__, __FUNCTION__);
