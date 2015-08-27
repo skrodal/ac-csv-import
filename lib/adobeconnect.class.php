@@ -234,6 +234,8 @@
 			$roomNamePrefixURL = str_replace(' ', '-', $roomNamePrefix);
 			// And take care of any other special chars 
 			$roomNamePrefixURL = htmlspecialchars($roomNamePrefix);
+			
+			error_log($roomNamePrefixURL);
 
 			// Create room in newly created folder
 			$apiCreateMeetingRoomResult = $this->callConnectApi(
