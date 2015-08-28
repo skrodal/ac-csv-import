@@ -319,8 +319,6 @@
 		 * @return array
 		 */
 		public function createUsers($postData) {
-			error_log("CREATE USERS:");
-			error_log(json_encode($postData));
 			// Get/set POST values
 			$orgName = isset($postData['user_org_shortname']) ? $postData['user_org_shortname'] : false;
 			$data    = isset($postData['data']) ? $postData['data'] : false;
