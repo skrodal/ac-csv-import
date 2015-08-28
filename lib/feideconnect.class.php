@@ -53,7 +53,7 @@
 		 */
 		private function _getFeideUsername() {
 			if(!isset($_SERVER["HTTP_X_FEIDECONNECT_USERID_SEC"])) {
-				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' HTTP/1.1 401 Unauthorized (user not found)');
+				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (user not found)');
 			}
 
 			$userIdSec = NULL;
@@ -74,7 +74,7 @@
 
 
 			if(!isset($userIdSec)) {
-				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' HTTP/1.1 401 Unauthorized (user not found)');
+				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (*Feide* user not found)');
 			}
 
 			// Either null or 'username@org.no'
@@ -84,7 +84,7 @@
 
 		private function _hasConnectScope($scope) {
 			if(!isset($_SERVER["HTTP_X_FEIDECONNECT_SCOPES"])) {
-				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' HTTP/1.1 401 Unauthorized (missing scope)');
+				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (missing client scope)');
 			}
 			// Get the scope(s)
 			$scopes = $_SERVER["HTTP_X_FEIDECONNECT_SCOPES"];
@@ -105,13 +105,13 @@
 
 		private function _checkGateKeeperCredentials() {
 			if(empty($_SERVER["PHP_AUTH_USER"]) || empty($_SERVER["PHP_AUTH_PW"])){
-				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' HTTP/1.1 401 Unauthorized (Missing API Gatekeeper Credentials)');
+				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (Missing API Gatekeeper Credentials)');
 			}
 
 			// Gatekeeper. user/pwd is passed along by the Connect Gatekeeper and must matched that of the registered API:
 			if($_SERVER["PHP_AUTH_USER"] !== $this->config['user'] || $_SERVER["PHP_AUTH_PW"] !== $this->config['passwd']) {
 				// The status code will be set in the header
-				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' HTTP/1.1 401 Unauthorized (Incorrect API Gatekeeper Credentials)');
+				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (Incorrect API Gatekeeper Credentials)');
 			}
 		}
 
