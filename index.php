@@ -27,7 +27,8 @@
 	 * GET all REST routes
 	 */
 	$router->map('GET', '/', function () {
-		Response::result(array('status' => true, 'routes' => $GLOBALS['router']->getRoutes()));
+		global $router;
+		Response::result(array('status' => true, 'routes' => $router->getRoutes()));
 	}, 'Routes listing');
 
 
@@ -35,7 +36,8 @@
 	 * GET Adobe Connect version
 	 */
 	$router->map('GET', '/version/', function () {
-		Response::result($GLOBALS['connect']->getConnectVersion());
+		global $connect;
+		Response::result($connect->getConnectVersion());
 	}, 'Adobe Connect version');
 
 
@@ -44,7 +46,8 @@
 	 */
 	$router->map('GET', '/folder/[a:org]/nav/', function ($orgFolderName) {
 		verifyOrgAccess($orgFolderName);
-		Response::result($GLOBALS['connect']->getOrgFolderNav($orgFolderName));
+		global $connect;
+		Response::result($connect->getOrgFolderNav($orgFolderName));
 	}, 'Org subfolders in Shared Meetings folder');
 
 
@@ -53,7 +56,8 @@
 	 */
 	$router->map('POST', '/rooms/create/', function () {
 		verifyOrgAccess($_POST['user_org_shortname']);
-		Response::result($GLOBALS['connect']->createRooms($_POST));
+		global $connect;
+		Response::result($connect->createRooms($_POST));
 	});
 
 
@@ -62,7 +66,8 @@
 	 */
 	$router->map('POST', '/users/create/', function () {
 		verifyOrgAccess($_POST['user_org_shortname']);
-		Response::result($GLOBALS['connect']->createUsers($_POST));
+		global $connect;
+		Response::result($connect->createUsers($_POST));
 	});
 
 
@@ -70,7 +75,8 @@
 
 	// Make sure requested org name is the same as logged in user's org
 	function verifyOrgAccess($orgName){
-		if(strcasecmp($orgName, $GLOBALS['feide']->getUserOrg()) !== 0) {
+		global $dataporten;
+		if(strcasecmp($orgName, $dataporten->getUserOrg()) !== 0) {
 			Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (request mismatch org/user). ');
 		}
 	}
@@ -92,10 +98,11 @@
 /*
 // Check if a folder with a:org exists on server (mostly for testing for now)
 	$router->map('GET', '/folder/[a:org]/', function ($orgFolderName) {
-		if(strcasecmp($orgFolderName, $GLOBALS['feide']->getUserOrg()) !== 0) {
+		global $dataporten, $connect;
+		if(strcasecmp($orgFolderName, $dataporten->getUserOrg()) !== 0) {
 			Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized');
 		}
-		Response::result($GLOBALS['connect']->findOrgFolderSco($orgFolderName));
+		Response::result($connect->findOrgFolderSco($orgFolderName));
 	});
 */
 
