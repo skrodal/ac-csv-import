@@ -1,16 +1,16 @@
 <?php
 	// 
-	$FEIDE_CONNECT_CONFIG_PATH = '/var/www/etc/ac-csv-import/feideconnect_config.js';
+	$DATAPORTEN_CONFIG_PATH    = '/var/www/etc/ac-csv-import/dataporten_config.js';
 	$ADOBE_CONNECT_CONFIG_PATH = '/var/www/etc/ac-csv-import/adobe_config.js';
 	//
 	$BASE          = dirname(__FILE__);
 	$API_BASE_PATH = '/api/ac-csv-import'; // Remember to update .htacces as well. Same with a '/' at the end...
 	// Result or error responses
 	require_once($BASE . '/lib/response.class.php');
-	// Checks CORS and pulls FeideConnect info from headers
-	require_once($BASE . '/lib/feideconnect.class.php');
-	$feide_config = json_decode(file_get_contents($FEIDE_CONNECT_CONFIG_PATH), true);
-	$feide        = new FeideConnect($feide_config);
+	// Checks CORS and pulls Dataporten info from headers
+	require_once($BASE . '/lib/dataporten.class.php');
+	$dataporten_config = json_decode(file_get_contents($DATAPORTEN_CONFIG_PATH), true);
+	$dataporten        = new Dataporten($dataporten_config);
 	//  http://altorouter.com
 	require_once($BASE . '/lib/router.class.php');
 	$router = new Router();

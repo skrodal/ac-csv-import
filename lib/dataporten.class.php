@@ -5,7 +5,7 @@
 	 * @date   01/07/15
 	 * @time   10:11
 	 */
-	class FeideConnect {
+	class Dataporten {
 
 		protected $userName, $isAdmin, $userOrg, $isSuperAdmin, $config;
 
@@ -18,7 +18,7 @@
 			$this->_checkGateKeeperCredentials();
 			// Get Feide username (exits if not found)
 			$this->userName = $this->_getFeideUsername();
-			$this->isAdmin  = $this->_hasConnectScope('admin');
+			$this->isAdmin  = $this->_hasDataportenScope('admin');
 			$this->userOrg  = explode('@', $this->userName); // Split username@org.no
 			$this->isSuperAdmin = ( strcasecmp($this->userOrg[1], 'uninett.no') == 0 );
 			$this->userOrg  = explode('.', $this->userOrg[1]); // Split org.no
@@ -43,7 +43,7 @@
 
 
 		/**
-		 * Gets the feide username (if present) from the Gatekeeper via HTTP_X_FEIDECONNECT_USERID_SEC.
+		 * Gets the feide username (if present) from the Gatekeeper via HTTP_X_DATAPORTEN_USERID_SEC.
 		 *
 		 * It should only return a single string, 'feide:user@org.no', but future development might introduce
 		 * a comma-separated or array representation of more than one username
@@ -52,13 +52,13 @@
 		 * This function takes care of all of these cases.
 		 */
 		private function _getFeideUsername() {
-			if(!isset($_SERVER["HTTP_X_FEIDECONNECT_USERID_SEC"])) {
+			if(!isset($_SERVER["HTTP_X_DATAPORTEN_USERID_SEC"])) {
 				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (user not found)');
 			}
 
 			$userIdSec = NULL;
 			// Get the username(s)
-			$userid = $_SERVER["HTTP_X_FEIDECONNECT_USERID_SEC"];
+			$userid = $_SERVER["HTTP_X_DATAPORTEN_USERID_SEC"];
 			// Future proofing...
 			if(!is_array($userid)) {
 				// If not already an array, make it so. If it is not a comma separated list, we'll get a single array item.
@@ -82,12 +82,12 @@
 		}
 
 
-		private function _hasConnectScope($scope) {
-			if(!isset($_SERVER["HTTP_X_FEIDECONNECT_SCOPES"])) {
+		private function _hasDataportenScope($scope) {
+			if(!isset($_SERVER["HTTP_X_DATAPORTEN_SCOPES"])) {
 				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (missing client scope)');
 			}
 			// Get the scope(s)
-			$scopes = $_SERVER["HTTP_X_FEIDECONNECT_SCOPES"];
+			$scopes = $_SERVER["HTTP_X_DATAPORTEN_SCOPES"];
 			// Make array
 			$scopes = explode(',', $scopes);
 
@@ -108,7 +108,7 @@
 				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (Missing API Gatekeeper Credentials)');
 			}
 
-			// Gatekeeper. user/pwd is passed along by the Connect Gatekeeper and must matched that of the registered API:
+			// Gatekeeper. user/pwd is passed along by Dataporten Gatekeeper and must matched that of the registered API:
 			if($_SERVER["PHP_AUTH_USER"] !== $this->config['user'] || $_SERVER["PHP_AUTH_PW"] !== $this->config['passwd']) {
 				// The status code will be set in the header
 				Response::error(401, $_SERVER["SERVER_PROTOCOL"] . ' 401 Unauthorized (Incorrect API Gatekeeper Credentials)');
